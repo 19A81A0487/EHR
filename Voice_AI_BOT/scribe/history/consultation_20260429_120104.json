@@ -1,0 +1,116 @@
+{
+  "timestamp": "2026-04-29T12:01:04.648865",
+  "patient": {},
+  "clinical_data": {
+    "patient_info": {
+      "age": null,
+      "gender": null
+    },
+    "chief_complaint": "cold and cough",
+    "history_of_present_illness": {
+      "onset": "three days ago",
+      "duration": "three days",
+      "severity": "mild",
+      "character": "cold and cough",
+      "location": null
+    },
+    "symptoms_present": [
+      "cold",
+      "cough",
+      "sore throat",
+      "headache",
+      "fever"
+    ],
+    "symptoms_denied": [
+      "difficulty breathing",
+      "body aches",
+      "asthma",
+      "allergies"
+    ],
+    "vitals": {
+      "temperature": null,
+      "bp": null,
+      "pulse": null,
+      "spo2": null
+    },
+    "medications_taken": [
+      "paracetamol"
+    ],
+    "past_medical_history": "none",
+    "allergies": "none",
+    "subjective": "• patient reports cold, cough, sore throat, headache, and fever",
+    "objective": "• Telemedicine consultation — no physical exam",
+    "assessment": "• likely viral upper respiratory tract infection (common cold)",
+    "plan": "• continue paracetamol for fever and headache, use humidifier, rest, hydration, and over-the-counter cough medications",
+    "differential_diagnosis": [
+      "viral upper respiratory tract infection"
+    ],
+    "red_flags_screened": [
+      "difficulty breathing - negative"
+    ],
+    "confidence": {
+      "subjective": "high",
+      "objective": "medium",
+      "assessment": "high",
+      "plan": "high"
+    },
+    "severity": "mild",
+    "triage": "self-care",
+    "follow_up": "if symptoms worsen or last longer than 7-10 days"
+  },
+  "transcript": "Doctor: Hello, I'm Dr. AI, and I'm here to help you with your concerns. Can you please tell me what brings you here today, what's your main complaint?\nPatient: I have a cold and cough.\nDoctor: I'm so sorry to hear that you're not feeling well. Can you tell me how long you've had the cold and cough, and have you experienced any difficulty breathing or a fever along with it?\nPatient: I’ve had the cold and cough for about three days. I don’t have any difficulty breathing, but I’ve had a mild fever\nDoctor: That helps to give me a better understanding of your symptoms. Have you noticed any other symptoms such as a sore throat, headache, or body aches, and are you taking any medications to help manage your cold and fever?\nPatient: Yes, I have a sore throat and a mild headache, but no body aches. I’ve been taking paracetamol to help with the fever\nDoctor: It sounds like your symptoms are fairly typical of a common cold. Have you had any previous illnesses or conditions that might be relevant to your current symptoms, such as asthma or allergies, and are you taking any other medications besides paracetamol?\nPatient: No, I don’t have any previous illnesses like asthma or allergies, and I’m not taking any other medications besides paracetamol\nDoctor: It's likely that you have a viral upper respiratory tract infection, which is a common cold. I'll summarize your symptoms and provide some basic advice, but first, do you have any concerns about your symptoms or would you like some guidance on how to manage them?\nPatient: I don’t have any major concerns, but I’d like some guidance on how to manage my symptoms and recover quickly.\nDoctor: To manage your symptoms, you can continue taking paracetamol for fever and headache, and try using a humidifier to soothe your cough and sore throat. Rest, hydration, and over-the-counter cough medications can also help. If your symptoms worsen or last longer than 7-10 days, seek medical attention.\nPatient: okay thank you\nDoctor: You're welcome, feel better soon.",
+  "chat_history": [
+    {
+      "role": "assistant",
+      "content": "Hello, I'm Dr. AI, and I'm here to help you with your concerns. Can you please tell me what brings you here today, what's your main complaint?"
+    },
+    {
+      "role": "user",
+      "content": "I have a cold and cough."
+    },
+    {
+      "role": "assistant",
+      "content": "I'm so sorry to hear that you're not feeling well. Can you tell me how long you've had the cold and cough, and have you experienced any difficulty breathing or a fever along with it?"
+    },
+    {
+      "role": "user",
+      "content": "I’ve had the cold and cough for about three days. I don’t have any difficulty breathing, but I’ve had a mild fever"
+    },
+    {
+      "role": "assistant",
+      "content": "That helps to give me a better understanding of your symptoms. Have you noticed any other symptoms such as a sore throat, headache, or body aches, and are you taking any medications to help manage your cold and fever?"
+    },
+    {
+      "role": "user",
+      "content": "Yes, I have a sore throat and a mild headache, but no body aches. I’ve been taking paracetamol to help with the fever"
+    },
+    {
+      "role": "assistant",
+      "content": "It sounds like your symptoms are fairly typical of a common cold. Have you had any previous illnesses or conditions that might be relevant to your current symptoms, such as asthma or allergies, and are you taking any other medications besides paracetamol?"
+    },
+    {
+      "role": "user",
+      "content": "No, I don’t have any previous illnesses like asthma or allergies, and I’m not taking any other medications besides paracetamol"
+    },
+    {
+      "role": "assistant",
+      "content": "It's likely that you have a viral upper respiratory tract infection, which is a common cold. I'll summarize your symptoms and provide some basic advice, but first, do you have any concerns about your symptoms or would you like some guidance on how to manage them?"
+    },
+    {
+      "role": "user",
+      "content": "I don’t have any major concerns, but I’d like some guidance on how to manage my symptoms and recover quickly."
+    },
+    {
+      "role": "assistant",
+      "content": "To manage your symptoms, you can continue taking paracetamol for fever and headache, and try using a humidifier to soothe your cough and sore throat. Rest, hydration, and over-the-counter cough medications can also help. If your symptoms worsen or last longer than 7-10 days, seek medical attention. [CONSULTATION_COMPLETE]"
+    },
+    {
+      "role": "user",
+      "content": "okay thank you"
+    },
+    {
+      "role": "assistant",
+      "content": "You're welcome, feel better soon. [CONSULTATION_COMPLETE]"
+    }
+  ]
+}
