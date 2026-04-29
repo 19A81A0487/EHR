@@ -9,20 +9,34 @@ import os, sys, glob, time, json, re, asyncio, tempfile
 import streamlit as st
 from pathlib import Path
 from datetime import datetime
-from dotenv import load_dotenv
+
+# Load .env locally (optional — Streamlit Cloud uses st.secrets)
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+except ImportError:
+    pass  # dotenv not needed on Streamlit Cloud
+
 from clinical_engine import (generate_clinical_output, save_consultation,
     load_consultation_history, severity_badge, triage_badge,
     check_guardrails, GUARDRAIL_DISCLAIMER)
 
 SCRIBE_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIBE_DIR.parent
-load_dotenv(PROJECT_ROOT / ".env")
 
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
-WHISPER_MODEL_SIZE = os.getenv("WHISPER_MODEL_SIZE", "small")
-WHISPER_DEVICE = os.getenv("WHISPER_DEVICE", "cpu")
-WHISPER_COMPUTE_TYPE = os.getenv("WHISPER_COMPUTE_TYPE", "int8")
+def _cfg(key, default=""):
+    """Get config from env vars or Streamlit secrets."""
+    val = os.getenv(key, "")
+    if not val:
+        try: val = st.secrets.get(key, default)
+        except: val = default
+    return val or default
+
+GROQ_API_KEY = _cfg("GROQ_API_KEY")
+GROQ_MODEL = _cfg("GROQ_MODEL", "llama-3.3-70b-versatile")
+WHISPER_MODEL_SIZE = _cfg("WHISPER_MODEL_SIZE", "small")
+WHISPER_DEVICE = _cfg("WHISPER_DEVICE", "cpu")
+WHISPER_COMPUTE_TYPE = _cfg("WHISPER_COMPUTE_TYPE", "int8")
 # ── Language Configuration ──
 LANG_CONFIG = {
     "English": {
