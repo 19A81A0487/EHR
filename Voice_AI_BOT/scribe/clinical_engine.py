@@ -2,13 +2,17 @@
 import json, re, os
 from datetime import datetime
 from groq import Groq
-from dotenv import load_dotenv
 from pathlib import Path
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-load_dotenv(PROJECT_ROOT / ".env")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile")
+# Load .env locally (optional)
+try:
+    from dotenv import load_dotenv
+    load_dotenv(Path(__file__).resolve().parent.parent / ".env")
+except ImportError:
+    pass
+
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip().strip('"').strip("'")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile").strip().strip('"')
 HISTORY_DIR = Path(__file__).resolve().parent / "history"
 HISTORY_DIR.mkdir(exist_ok=True)
 
@@ -51,17 +55,37 @@ TRANSCRIPT:
 
 def generate_clinical_output(transcript):
     """Generate structured clinical output from transcript."""
+    import time as _time
+    if not GROQ_API_KEY:
+        return {"error": "GROQ_API_KEY not set", "subjective": "API key missing", "objective": "N/A",
+                "assessment": "N/A", "plan": "N/A", "severity": "unknown", "triage": "unknown",
+                "confidence": {}, "symptoms_present": [], "symptoms_denied": [],
+                "differential_diagnosis": [], "medications_taken": [], "red_flags_screened": []}
     client = Groq(api_key=GROQ_API_KEY)
-    resp = client.chat.completions.create(
-        model=GROQ_MODEL,
-        messages=[
-            {"role": "system", "content": "You are a precise medical scribe. Output ONLY valid JSON. Never hallucinate. Extract only from transcript."},
-            {"role": "user", "content": CLINICAL_PROMPT.format(transcript=transcript)}
-        ],
-        temperature=0.1, max_tokens=3000,
-        response_format={"type": "json_object"},
-    )
-    raw = resp.choices[0].message.content.strip()
+
+    # Retry up to 3 times for connection errors
+    for attempt in range(3):
+        try:
+            resp = client.chat.completions.create(
+                model=GROQ_MODEL,
+                messages=[
+                    {"role": "system", "content": "You are a precise medical scribe. Output ONLY valid JSON. Never hallucinate. Extract only from transcript."},
+                    {"role": "user", "content": CLINICAL_PROMPT.format(transcript=transcript)}
+                ],
+                temperature=0.1, max_tokens=3000,
+                response_format={"type": "json_object"},
+            )
+            raw = resp.choices[0].message.content.strip()
+            break
+        except Exception as e:
+            if attempt < 2:
+                _time.sleep(2)
+                continue
+            return {"error": f"Groq API error: {str(e)}", "subjective": f"API error after 3 retries: {str(e)[:200]}",
+                    "objective": "N/A", "assessment": "N/A", "plan": "N/A", "severity": "unknown", "triage": "unknown",
+                    "chief_complaint": "API Error", "confidence": {}, "symptoms_present": [], "symptoms_denied": [],
+                    "differential_diagnosis": [], "medications_taken": [], "red_flags_screened": []}
+
     match = re.search(r'\{[\s\S]*\}', raw)
     if match: raw = match.group(0)
     try:
