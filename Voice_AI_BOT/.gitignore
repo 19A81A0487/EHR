@@ -1,0 +1,41 @@
+# Environment & Secrets
+.env
+*.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Audio files (don't commit recordings)
+scribe/*.wav
+scribe/*.mp3
+
+# Consultation history (contains patient data)
+scribe/history/
+
+# Whisper model cache
+models/
+
+# OS files
+Thumbs.db
+.DS_Store
+desktop.ini
+
+# Hugging Face cache
+.cache/
